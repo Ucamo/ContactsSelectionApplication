@@ -1,9 +1,11 @@
 package carrillo.uriel.contactsselectionapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -17,7 +19,7 @@ import java.lang.Override;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactIntentActivity extends ActionBarActivity {
+public class ContactIntentActivity extends AppCompatActivity {
 
     private final int PHONE=0;
     private final int WEBSITE=1;
@@ -54,32 +56,13 @@ public class ContactIntentActivity extends ActionBarActivity {
         intentListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Intent i = new Intent(ContactIntentActivity, this, ContactPageActivity.class);
+                Intent i = new Intent(ContactIntentActivity.this, ContactPageActivity.class);
                 i.putExtra("Object", contactsList.get(position));
                 startActivityForResult(i,0);
 
             }
 
         });
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_contact_intent, menu);
-        return true;
     }
 
     @Override
@@ -94,7 +77,7 @@ public class ContactIntentActivity extends ActionBarActivity {
         {
             case PHONE:
                 //Implicit intent to make a call
-                startActivity(new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+value)));
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + value)));
                 break;
             case WEBSITE:
                 //implicit intent to visit website
@@ -102,6 +85,15 @@ public class ContactIntentActivity extends ActionBarActivity {
                 break;
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_contact_intent, menu);
+        return true;
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

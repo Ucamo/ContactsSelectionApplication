@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by uriel on 29/11/15.
  */
-public class ContactObject implements Serializable {
+public class ContactObject implements Serializable  {
     private static final long serialVersionUID=1L;
     private String name;
     private String phone;
